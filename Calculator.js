@@ -7,6 +7,7 @@ export default class Calculator {
         this.clear()
     }
 
+
     get primaryOperand() {
         return parseFloat(this.primaryOperandDisplay.dataset.value)
     }
@@ -15,9 +16,16 @@ export default class Calculator {
         this.primaryOperandDisplay.textContent = displayNumber (value)
     }
 
+    get secondaryOperand() {
+        return parseFloat(this.secondaryOperandDisplay.dataset.value)
+    }
+
     set secondaryOperand(value) {
         this.secondaryOperandDisplay.textContent = displayNumber ?? ''
         this.secondaryOperandDisplay.textContent = displayNumber (value)
+    }
+    get operation() {
+        return this.operationDisplay.textContent
     }
     set operation(value) {
         this.operationDisplay.textContent = value ?? ''
@@ -41,6 +49,37 @@ export default class Calculator {
             return 
         }
         this.primaryOperand = numberString.substring(0, numberString.length - 1)
+    }
+
+    evaluate() {
+        let result
+        switch(this.operation) {
+            case '*':
+                result = this.secondaryOperand * this.primaryOperand
+                break
+            case '÷':
+                result = this.secondaryOperand / this.primaryOperand
+                break
+            case '+':
+                result = this.secondaryOperand + this.primaryOperand
+                break
+            case '-':
+                result = this.secondaryOperand - this.primary
+                break
+                default:
+                    return
+        }
+        this.clear()
+        this.primaryOperand = result
+
+        result 
+    }
+
+    chooseOperation(operation) {
+        if (this.operation !== '') return 
+        this.operation = operation
+        this.secondaryOperand = this.primaryOperand
+        this.primaryOperand = 0
     }
 
     clear() {
